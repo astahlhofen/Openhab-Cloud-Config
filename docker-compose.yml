@@ -1,0 +1,54 @@
+version: '3'
+services:
+    app-1:
+        container_name: app-1
+        build: ./myopenhab-app/
+#        volumes:
+#        - ./myopenhab-app/config.json:/opt/openhabcloud/config.json
+        working_dir: /opt/openhab-cloud
+        networks:
+        - ohcloud-network
+        links:
+        - mongodb
+        - redis
+        depends_on:
+        - mongodb
+        - redis
+        restart: always     
+    mongodb:
+        container_name: mongodb
+        image: bitnami/mongodb:latest
+        networks:
+        - ohcloud-network
+        volumes:
+        - "/root/mymongodb-app/openhabDatabase:/data/db"
+        restart: always
+        environment:
+        - MONGODB_USERNAME=admin
+        - MONGODB_PASSWORD=zZqfIN413CzK5s236h38
+        - MONGODB_DATABASE=openhab
+    redis:
+        container_name: redis
+        image: bitnami/redis:latest
+        networks:
+        - ohcloud-network
+        environment:
+        - REDIS_PASSWORD=ZB8ktGx8LUEgTAfN6ILP
+        restart: always
+    nginx:
+        container_name: nginx
+        image: docker.io/openhab/openhabcloud-nginx
+        volumes:
+        - app-1:/opt/openhabcloud
+        networks:
+        - ohcloud-network
+        ports:
+        - "80:8081"
+        - "443:8443"
+        links:
+        - app-1:app-1
+volumes:
+  app-1:
+networks:
+  ohcloud-network:
+    driver: bridge

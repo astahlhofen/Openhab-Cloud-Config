@@ -1,0 +1,56 @@
+{
+    "system": {
+      "host": "app-1",
+      "port": "3000",
+      "protocol": "http",
+      "logger" : {
+        "dir": "./logs",
+        "maxFiles" : "7d",
+        "level" : "debug",
+        "morganOption" : null
+      },
+      "subDomainCookies": false,
+      "muteNotifications": false
+    },
+    "express":{
+      "key" : "some express key"
+    },
+    "gcm" : {
+      "jid": "something@gcm.googleapis.com",
+      "password": "password"
+    },
+    "ifttt" : {
+      "iftttChannelKey" : "key",
+      "iftttTestToken" : "token"
+    },
+    "mail": {
+      "host" : "smtp",
+      "port" : 465,
+      "user" : "foo@bar.com",
+      "pass" : "password"
+    },
+    "mongodb": {
+	"hosts": ["mongodb"],
+        "db": "openhab",
+        "user": "admin",
+        "password": "zZqfIN413CzK5s236h38"
+    },
+    "redis": {
+        "host": "redis",
+        "port": "6379",
+        "password": "ZB8ktGx8LUEgTAfN6ILP"
+    },
+    "mailer": {
+        "host" : "smtp",
+        "port": 465,
+        "secureConnection": true,
+        "user": "foo@bar.com",
+        "password": "password",
+        "from": "openHAB Cloud <administrator@darkblackside.com>"
+    },
+    "legal": {
+    	"terms" : "",
+        "policy": ""
+    },
+    "registration_enabled": true
+}
