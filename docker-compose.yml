@@ -37,16 +37,21 @@ services:
         restart: always
     nginx:
         container_name: nginx
-        image: docker.io/openhab/openhabcloud-nginx
+        image: nginx
         volumes:
-        - app-1:/opt/openhabcloud
+        - ./mynginx-app/openhabcloud_nginx.conf:/etc/nginx/conf.d/default.conf
+        - /root/certbot-data:/etc/nginx/sites-enabled/certbot
+        - /root/nginx-data:/etc/ssl/certs/dhparam-2048.pem
+        - /root/letsencrypt-data/live/myopenhab.darkblackside.com/fullchain.pem:/etc/letsencrypt/live/myopenhab.darkblackside.com/fullchain.pem
+        - /root/letsencrypt-data/live/myopenhab.darkblackside.com/privkey.pem:/etc/letsencrypt/live/myopenhab.darkblackside.com/privkey.pem
         networks:
         - ohcloud-network
         ports:
-        - "80:8081"
-        - "443:8443"
+        - "80:80"
+        - "443:443"
         links:
         - app-1:app-1
+        command: ['nginx', '-g', 'daemon off;']
 volumes:
   app-1:
 networks:
