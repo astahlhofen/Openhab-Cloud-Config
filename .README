@@ -1,0 +1,5 @@
+MISSING:
+
+Crontab-Entry for Certification renewal
+
+0 23 * * * docker run --rm -it --name certbot -v "/root/letsencrypt-data/:/etc/letsencrypt" -v "/root/certbot-data/:/data/letsencrypt/.well-known/acme-challenge" -v "/docker-volumes/var/log/letsencrypt:/var/log/letsencrypt" certbot/certbot renew --webroot -w /data/letsencrypt --quiet && docker kill --signal=HUP nginxoot -w /data/letsencrypt --quiet && docker kill --signal=HUP nginx
